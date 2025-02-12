@@ -39,7 +39,7 @@ function VoiceSynthesizer({
     return () => {
       synth.cancel();
     };
-  }, [state]);
+  }, [state, synth, voice, pitch, rate, volume]);
 
   useEffect(() => {
     const voices = window.speechSynthesis.getVoices();

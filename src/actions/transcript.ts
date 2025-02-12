@@ -1,6 +1,7 @@
 "use server";
 import { AzureOpenAI } from "openai";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function transcript(prevState: any, formData: FormData) {
   const id = Math.random().toString(36);
 
@@ -30,14 +31,14 @@ async function transcript(prevState: any, formData: FormData) {
 
   console.log(">>", file);
 
-  const arrayBuffer = await file.arrayBuffer();
-  const audio = new Uint8Array(arrayBuffer);
+  // const arrayBuffer = await file.arrayBuffer();
+  // const audio = new Uint8Array(arrayBuffer);
 
   // ---   get audio transcription from Azure OpenAI Whisper ----
 
   console.log("== Transcribe Audio Sample ==");
 
-  const deployment = process.env.AZURE_DEPLOYMENT_NAME;
+  // const deployment = process.env.AZURE_DEPLOYMENT_NAME;
   const apiVersion = "2024-06-01";
   const speechClient = new AzureOpenAI({
     apiVersion,

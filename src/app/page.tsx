@@ -6,7 +6,6 @@ import VoiceSynthesizer from "@/components/VoiceSynthesizer";
 import { SettingsIcon } from "lucide-react";
 import Image from "next/image";
 import { useActionState, useEffect, useRef, useState } from "react";
-import Logo from "logo.png";
 
 const initialState = {
   sender: "",

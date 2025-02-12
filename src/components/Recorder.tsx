@@ -15,7 +15,7 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
-  const [audio, setAudio] = useState<string | null>(null);
+  // const [audio, setAudio] = useState<string | null>(null);
 
   useEffect(() => {
     getMicrophonePermission();
@@ -30,6 +30,7 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
         });
         setPermission(true);
         setStream(streamData);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         alert(err.message);
       }
@@ -42,7 +43,7 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
     if (mediaRecorder === null || stream === null) return;
 
     if (pending) return;
- 
+
     setRecordingStatus("recording");
     //create new Media recorder instance using the stream
     const media = new MediaRecorder(stream, { mimeType: mimeType });
@@ -50,7 +51,7 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
     mediaRecorder.current = media;
     //invokes the start method to start the recording process
     mediaRecorder.current.start();
-    let localAudioChunks: Blob[] = [];
+    const localAudioChunks: Blob[] = [];
     mediaRecorder.current.ondataavailable = (event) => {
       if (typeof event.data === "undefined") return;
       if (event.data.size === 0) return;
@@ -67,9 +68,9 @@ function Recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
     mediaRecorder.current.onstop = () => {
       //creates a blob file from the audiochunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
-    //   //creates a playable URL from the blob file.
-    //   const audioUrl = URL.createObjectURL(audioBlob);
-    //   setAudio(audioUrl);
+      //   //creates a playable URL from the blob file.
+      //   const audioUrl = URL.createObjectURL(audioBlob);
+      //   setAudio(audioUrl);
       uploadAudio(audioBlob);
       setAudioChunks([]);
     };
